@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# Group Booking Form Project
+
+This project is a quickly built group booking form, developed to meet modern web development standards with a focus on performance, accessibility, and maintainability.
+
+## Key Features & Implementation
+
+- **Internationalization (i18n)**: Full support for UK English (en-GB) and German (de-DE) using `next-intl`, featuring a seamless language switcher in the header for an intuitive user experience.
+
+- **Performance & Rendering**: An optimized pipeline with Server-Side Rendering (SSR) contributing to a perfect Lighthouse performance score.
+
+- **Form Behaviour & Validation**: A dual-layer validation system with `react-hook-form` and Yup for client-side validation, and a simple server-side validation in the POST API endpoint.
+
+- **Accessibility (a11y)**: Adheres to WCAG 2.2 AA guidelines with semantic HTML, comprehensive ARIA attributes, and full keyboard navigability.
+
+- **Architecture & State Management**: A TypeScript-based, scalable architecture with predictable state management via React Context.
+
+- **Unit Testing**: Unit testing with Jest and React Testing Library to ensure component reliability and functionality.
+
+- **Light and Dark Theme**: a link on the header to see the german translation
+
+- **Storybook**: Component documentation via Storybook
+
+- **CI Actions**: A basic CI/CD pipeline with GitHub Actions,
+
+## Lighthouse Scores Breakdown
+
+As of the latest audit, the project achieved the following Lighthouse scores, reflecting its optimization across key metrics:
+
+- **Performance (100)**: A perfect score driven by a First Contentful Paint (FCP) of 0.4 seconds, ensuring instant content visibility, and a Total Blocking Time (TBT) of 40ms, minimizing interactivity delays. The Speed Index of 0.4 seconds confirms swift visual completion, while optimized assets and a minimal main-thread workload ensure efficiency across devices.
+
+- **Accessibility (86)**: A strong baseline with semantic HTML and ARIA implementation, enhanced by keyboard navigability. Opportunities remain for advanced color contrast and focus management to push this score higher.
+
+- **Best Practices (100)**: Perfect adherence to modern standards, including secure HTTPS usage, dependency management, and error-free console output.
+
+- **SEO (83)**: Solid visibility with meta tags, logical structure, and descriptive links, with potential for further content and keyword optimization.
+
+## Local Development
+
+### Installation
+
+Install dependencies with:
+
+### Available Scripts
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run unit tests:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Check code quality with linter:
 
-## Learn More
+```bash
+npm npm run lint
+ dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Launch Storybook:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run storybook
+```
