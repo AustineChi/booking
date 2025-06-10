@@ -8,17 +8,12 @@ import { useRoomRequirements } from "@/hooks/useRoomRequirements.hook";
 interface RoomRequirementsProps {
   translations: RoomRequirementTranslations;
   control: Control<RoomFormData>;
-  formErrors: FieldErrors<RoomFormData>;
+  errors: FieldErrors<RoomFormData>;
   handleSubmit: () => void;
 }
 
 export const RoomRequirements = React.memo(
-  ({
-    translations,
-    control,
-    formErrors,
-    handleSubmit,
-  }: RoomRequirementsProps) => {
+  ({ translations, control, errors, handleSubmit }: RoomRequirementsProps) => {
     const {
       shouldRender,
       checkboxValues,
@@ -43,7 +38,7 @@ export const RoomRequirements = React.memo(
         inputValues={inputValues}
         displayTotalRoomsText={formattedTotalRoomsText}
         comments={comments}
-        errors={formErrors}
+        errors={errors}
         onCheckboxChange={onCheckboxChange}
         onRoomChange={onRoomChange}
         onInputChange={onInputChange}
@@ -56,7 +51,7 @@ export const RoomRequirements = React.memo(
   (prevProps, nextProps) => {
     return (
       prevProps.translations === nextProps.translations &&
-      prevProps.formErrors === nextProps.formErrors &&
+      prevProps.errors === nextProps.errors &&
       prevProps.control === nextProps.control &&
       prevProps.handleSubmit === nextProps.handleSubmit
     );
