@@ -164,6 +164,7 @@ export async function getFormTranslations(locale: string) {
     PLANNING_GROUP_EVENT: t.rich("PLANNING_GROUP_EVENT", {
       strong: (chunks) => <strong>{chunks}</strong>,
     }) as string,
+    ROOM_TYPE_DOUBLE_SUB: ""
   };
 
   const formHeaderTranslations: FormHeaderTranslations = {
