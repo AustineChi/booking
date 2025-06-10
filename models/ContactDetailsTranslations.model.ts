@@ -1,0 +1,29 @@
+export interface ContactDetailsTranslations {
+  CONTACT_DETAILS: string;
+  YOUR_CONTACT_DETAILS: string;
+  TITLE: string;
+  SELECT_A_TITLE: string;
+  FIRST_NAME: string;
+  LAST_NAME: string;
+  PHONE_NUMBER: string;
+  EMAIL_ADDRESS: string;
+  CONTINUE: string;
+  FIELD_REQUIRED: string;
+  MAX_LENGTH_ERROR_FIRST_NAME: string;
+  MAX_LENGTH_ERROR_LAST_NAME: string;
+  PHONE_INVALID: string;
+  EMAIL_INVALID: string;
+  TITLE_MR: string;
+  TITLE_MRS: string;
+  TITLE_MS: string;
+  TITLE_DR: string;
+  TITLE_MX: string;
+  TITLE_MISS: string;
+  TITLE_MASTER: string;
+  TITLE_LORD: string;
+  TITLE_LADY: string;
+  TITLE_SIR: string;
+  TITLE_COL: string;
+  TITLE_PROF: string;
+  TITLE_REV: string;
+}

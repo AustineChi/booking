@@ -1,0 +1,37 @@
+export interface BookingDetailsTranslations {
+  BOOKING_DETAILS: string;
+  BOOKING_DETAILS_DESCRIPTION: string;
+  WHAT_TYPE_OF_BOOKER: string;
+  IS_YOUR_GROUP_STAYING: string;
+  SCHOOL_YOUTH_BOOKING: string;
+  REASON_FOR_VISIT: string;
+  SELECT_A_REASON: string;
+  PACKAGE_TYPE: string;
+  PREMIER_INN_BREAKFAST: string;
+  MEAL_DEAL: string;
+  CONTINUE: string;
+  FIELD_REQUIRED: string;
+  CHECK_IN_EARLIER_THAN_TODAY: string;
+  CHECK_OUT_EARLIER_THAN_CHECK_IN: string;
+  PACKAGE_TYPE_DESCRIPTION: string;
+  BOOKER_PERSONAL: string;
+  BOOKER_BUSINESS: string;
+  BOOKER_TRAVEL_MANAGEMENT: string;
+  BOOKER_TRAVEL_AGENT: string;
+  STAY_BUSINESS: string;
+  STAY_LEISURE: string;
+  REASON_ASSOCIATION: string;
+  REASON_BUS_TOUR: string;
+  REASON_BUSINESS_MEETING: string;
+  REASON_CHARITY_EVENT: string;
+  REASON_CONVENTION_CONFERENCE: string;
+  REASON_GOVERNMENT: string;
+  REASON_GRADUATION_REUNION: string;
+  REASON_LAYOVER: string;
+  REASON_LEISURE_TOUR: string;
+  REASON_MILITARY: string;
+  ENTER_DETAILS: string;
+  ENTER_A_HOTEL: string;
+  CHECK_IN_CHECK_OUT: string;
+  [key: string]: string;
+}
