@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import RoomSelection from "./RoomSelection";
+import { RoomSelection } from "./RoomSelection";
 
 describe("RoomSelection Component", () => {
   const baseProps = {

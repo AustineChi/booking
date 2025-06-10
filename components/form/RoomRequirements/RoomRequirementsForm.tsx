@@ -1,39 +1,34 @@
+import React from "react";
+import { FieldErrors } from "react-hook-form";
 import { AdditionalInformationTextarea } from "@/components/form-fields/AdditionalInformationTextarea/AdditionalInformationTextarea";
 import { Button } from "@/components/form-fields/Button/Button";
-import RoomSelection from "@/components/form-fields/RoomSelection/RoomSelection";
 import { RoomFormData } from "@/hooks/useRoomForm.hook";
 import { RoomRequirementTranslations } from "@/models/RoomRequirementTranslations.model";
-import { FieldErrors } from "react-hook-form";
-
+import { RoomSelection } from "@/components/form-fields/RoomSelection/RoomSelection";
 interface RoomRequirementsFormProps {
   translations: RoomRequirementTranslations;
-  accessibleNeeded: boolean;
-  stayingWithChildren: boolean;
+  checkboxValues: Record<string, boolean>;
   roomCounts: Record<string, number>;
   inputValues: Record<string, string>;
   displayTotalRoomsText: string;
   comments: string;
   errors: FieldErrors<RoomFormData>;
-  onAccessibleChange: (checked: boolean, id: string) => void;
-  onChildrenChange: (checked: boolean, id: string) => void;
+  onCheckboxChange: (id: string, checked: boolean) => void;
   onRoomChange: (roomType: string, count: number) => void;
   onInputChange: (roomType: string, value: string) => void;
   onBlur: (roomType: string) => void;
   onCommentsChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
-
 export const RoomRequirementsForm: React.FC<RoomRequirementsFormProps> = ({
   translations,
-  accessibleNeeded,
-  stayingWithChildren,
+  checkboxValues,
   roomCounts,
   inputValues,
   displayTotalRoomsText,
   comments,
   errors,
-  onAccessibleChange,
-  onChildrenChange,
+  onCheckboxChange,
   onRoomChange,
   onInputChange,
   onBlur,
@@ -48,36 +43,40 @@ export const RoomRequirementsForm: React.FC<RoomRequirementsFormProps> = ({
       <form onSubmit={onSubmit} className="space-y-4">
         <RoomSelection
           wrapperClassName="w-full"
-          checkboxOptions={[
-            { id: "children", label: translations.TRAVELLING_WITH_CHILDREN },
-            { id: "accessible", label: translations.ACCESSIBLE_NEEDED },
-          ]}
-          roomTypes={[
-            {
-              id: "single",
-              label: translations.SINGLE_OCCUPANCY,
-              subLabel: translations.ROOM_TYPE_SINGLE_SUB,
-            },
-            {
-              id: "double",
-              label: translations.DOUBLE_OCCUPANCY,
-              subLabel: translations.ROOM_TYPE_DOUBLE_SUB,
-            },
-            {
-              id: "twin",
-              label: translations.TWIN,
-              subLabel: translations.ROOM_TYPE_DOUBLE_SUB,
-            },
-          ]}
-          accessibleNeeded={accessibleNeeded}
-          stayingWithChildren={stayingWithChildren}
-          roomCounts={roomCounts}
-          inputValues={inputValues}
+          options={{
+            checkboxes: [
+              { id: "children", label: translations.TRAVELLING_WITH_CHILDREN },
+              { id: "accessible", label: translations.ACCESSIBLE_NEEDED },
+            ],
+            roomTypes: [
+              {
+                id: "single",
+                label: translations.SINGLE_OCCUPANCY,
+                subLabel: translations.ROOM_TYPE_SINGLE_SUB,
+              },
+              {
+                id: "double",
+                label: translations.DOUBLE_OCCUPANCY,
+                subLabel: translations.ROOM_TYPE_DOUBLE_SUB,
+              },
+              {
+                id: "twin",
+                label: translations.TWIN,
+                subLabel: translations.ROOM_TYPE_DOUBLE_SUB,
+              },
+            ],
+          }}
+          values={{
+            checkboxValues,
+            roomCounts,
+            inputValues,
+          }}
           displayTotalRoomsText={displayTotalRoomsText}
-          onAccessibleChange={onAccessibleChange}
-          onChildrenChange={onChildrenChange}
-          onRoomChange={onRoomChange}
-          onInputChange={onInputChange}
+          onChange={{
+            checkbox: onCheckboxChange,
+            room: onRoomChange,
+            input: onInputChange,
+          }}
           onBlur={onBlur}
         />
 
@@ -89,7 +88,7 @@ export const RoomRequirementsForm: React.FC<RoomRequirementsFormProps> = ({
           value={comments}
           onChange={onCommentsChange}
           placeholder={translations.COMMENTS_PLACEHOLDER}
-          error={errors.comments?.message}
+          error={errors?.comments?.message ?? translations.FIELD_REQUIRED}
         />
 
         <Button type="submit" variant="primary" className="w-full">
@@ -99,3 +98,5 @@ export const RoomRequirementsForm: React.FC<RoomRequirementsFormProps> = ({
     </div>
   );
 };
+
+RoomRequirementsForm.displayName = "RoomRequirementsForm";

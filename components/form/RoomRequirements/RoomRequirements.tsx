@@ -1,87 +1,62 @@
 import React from "react";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Control, FieldErrors } from "react-hook-form";
 import { RoomRequirementsForm } from "./RoomRequirementsForm";
-import { useRoomSelection } from "@/hooks/useRoomSelection.hook";
 import { RoomRequirementTranslations } from "@/models/RoomRequirementTranslations.model";
-import { formatTotalRoomsText } from "@/lib/functions/formatTotalRoomsText";
-import { useFormContext } from "@/context/FormContext";
-import { RoomFormData, useRoomForm } from "@/hooks/useRoomForm.hook";
+import { RoomFormData } from "@/hooks/useRoomForm.hook";
+import { useRoomRequirements } from "@/hooks/useRoomRequirements.hook";
 
 interface RoomRequirementsProps {
   translations: RoomRequirementTranslations;
   control: Control<RoomFormData>;
-  errors: FieldErrors<RoomFormData>;
+  formErrors: FieldErrors<RoomFormData>;
   handleSubmit: () => void;
 }
 
 export const RoomRequirements = React.memo(
-  ({ translations, control, errors, handleSubmit }: RoomRequirementsProps) => {
-    const { activeStep, formData } = useFormContext();
-    const { setValue } = useRoomForm({ translations });
-
+  ({
+    translations,
+    control,
+    formErrors,
+    handleSubmit,
+  }: RoomRequirementsProps) => {
     const {
-      accessibleNeeded,
-      stayingWithChildren,
+      shouldRender,
+      checkboxValues,
       roomCounts,
+      comments,
       inputValues,
-      totalRooms,
-      handleAccessibleChange,
-      handleChildrenChange,
-      handleRoomChange,
-      handleInputChange,
-      handleBlur,
-    } = useRoomSelection({
-      initialAccessible: formData.room?.accessibleNeeded ?? false,
-      initialWithChildren: formData.room?.travellingWithChildren ?? false,
-      initialRoomCounts: {
-        single: formData.room?.singleRooms ?? 0,
-        double: formData.room?.doubleRooms ?? 0,
-        twin: formData.room?.twinRooms ?? 0,
-      },
-      onAccessibleChange: (value) => setValue("accessibleNeeded", value),
-      onChildrenChange: (value) => setValue("travellingWithChildren", value),
-      onRoomChange: (roomType, count) => {
-        if (roomType === "single") setValue("singleRooms", count);
-        if (roomType === "double") setValue("doubleRooms", count);
-        if (roomType === "twin") setValue("twinRooms", count);
-      },
-    });
+      formattedTotalRoomsText,
+      onCheckboxChange,
+      onRoomChange,
+      onInputChange,
+      onBlur,
+      onCommentsChange,
+    } = useRoomRequirements(translations, control);
 
-    if (activeStep !== "room") return null;
+    if (!shouldRender) return null;
 
     return (
-      <Controller
-        name="comments"
-        control={control}
-        render={({ field }) => (
-          <RoomRequirementsForm
-            translations={translations}
-            accessibleNeeded={accessibleNeeded}
-            stayingWithChildren={stayingWithChildren}
-            roomCounts={roomCounts}
-            inputValues={inputValues}
-            displayTotalRoomsText={formatTotalRoomsText(
-              translations.TOTAL_ROOMS,
-              totalRooms
-            )}
-            comments={field.value}
-            errors={errors}
-            onAccessibleChange={handleAccessibleChange}
-            onChildrenChange={handleChildrenChange}
-            onRoomChange={handleRoomChange}
-            onInputChange={handleInputChange}
-            onBlur={handleBlur}
-            onCommentsChange={field.onChange}
-            onSubmit={handleSubmit}
-          />
-        )}
+      <RoomRequirementsForm
+        translations={translations}
+        checkboxValues={checkboxValues}
+        roomCounts={roomCounts}
+        inputValues={inputValues}
+        displayTotalRoomsText={formattedTotalRoomsText}
+        comments={comments}
+        errors={formErrors}
+        onCheckboxChange={onCheckboxChange}
+        onRoomChange={onRoomChange}
+        onInputChange={onInputChange}
+        onBlur={onBlur}
+        onCommentsChange={onCommentsChange}
+        onSubmit={handleSubmit}
       />
     );
   },
   (prevProps, nextProps) => {
     return (
       prevProps.translations === nextProps.translations &&
-      prevProps.errors === nextProps.errors &&
+      prevProps.formErrors === nextProps.formErrors &&
       prevProps.control === nextProps.control &&
       prevProps.handleSubmit === nextProps.handleSubmit
     );
