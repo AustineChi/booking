@@ -8,7 +8,7 @@ import {
 interface SelectProps
   extends Omit<MaterialSelectProps, "value" | "onChange" | "children"> {
   label?: string;
-  error?: boolean;
+  error?: boolean | string; // Allow string for error message
   className?: string;
   wrapperClassName?: string;
   options: { value: string; label: string }[];
@@ -34,9 +34,10 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
       placeholder,
       ...props
     },
+    ref
   ) => {
     const handleChange = (selectedValue: string | undefined) => {
-      if (onChange && selectedValue !== undefined) {
+      if (onChange) {
         onChange(selectedValue);
       }
     };
@@ -54,7 +55,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
           value={value || ""}
           onChange={handleChange}
           label={label || placeholder}
-          error={error}
+          error={!!error}
           className={`rounded-md ${className} h-14`}
           labelProps={{
             className: "text-[--color-text]",
@@ -65,8 +66,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
           role="combobox"
           aria-expanded={false}
           aria-required={required || undefined}
-          aria-describedby={id}
-          aria-labelledby={`${id} ${error || ""}`.trim()}
+          aria-describedby={error ? `${id}-error` : undefined}
+          aria-labelledby={label ? `${id}-label` : undefined}
+          ref={ref}
           {...props}
         >
           {options.map((option) => (
@@ -75,7 +77,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
             </Option>
           ))}
         </MaterialSelect>
-        {error && (
+        {error && typeof error === "string" && (
           <p
             id={`${id}-error`}
             className="mt-1 text-sm text-red-500"

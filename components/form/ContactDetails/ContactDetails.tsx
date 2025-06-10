@@ -1,5 +1,5 @@
 import React from "react";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Control, FieldErrors, useController } from "react-hook-form";
 import { useFormContext } from "@/context/FormContext";
 import { ContactDetailsForm } from "./ContactDetailsForm";
 import { titleOptions } from "@/lib/constants";
@@ -20,70 +20,44 @@ export const ContactDetails = React.memo(
     const { activeStep } = useFormContext();
     const selectOptions = translateTitleOptions(titleOptions, translations);
 
+    const titleField = useController({ control, name: "title" });
+    const firstNameField = useController({ control, name: "firstName" });
+    const lastNameField = useController({ control, name: "lastName" });
+    const phoneField = useController({ control, name: "phone" });
+    const emailField = useController({ control, name: "email" });
+
     if (activeStep !== "contact") return null;
 
     return (
-      <Controller
-        name="title"
-        control={control}
-        render={({ field }) => (
-          <Controller
-            name="firstName"
-            control={control}
-            render={({ field: firstNameField }) => (
-              <Controller
-                name="lastName"
-                control={control}
-                render={({ field: lastNameField }) => (
-                  <Controller
-                    name="phone"
-                    control={control}
-                    render={({ field: phoneField }) => (
-                      <Controller
-                        name="email"
-                        control={control}
-                        render={({ field: emailField }) => (
-                          <ContactDetailsForm
-                            translations={translations}
-                            titleValue={field.value}
-                            firstNameValue={firstNameField.value}
-                            lastNameValue={lastNameField.value}
-                            phoneValue={phoneField.value || ""}
-                            emailValue={emailField.value}
-                            selectOptions={selectOptions}
-                            errors={{
-                              title: errors.title?.message,
-                              firstName: errors.firstName?.message,
-                              lastName: errors.lastName?.message,
-                              phone: errors.phone?.message,
-                              email: errors.email?.message,
-                            }}
-                            onTitleChange={(value: string | undefined) =>
-                              field.onChange(value)
-                            }
-                            onFirstNameChange={(
-                              e: ChangeEvent<HTMLInputElement>
-                            ) => firstNameField.onChange(e.target.value)}
-                            onLastNameChange={(
-                              e: ChangeEvent<HTMLInputElement>
-                            ) => lastNameField.onChange(e.target.value)}
-                            onPhoneChange={(e: ChangeEvent<HTMLInputElement>) =>
-                              phoneField.onChange(e.target.value)
-                            }
-                            onEmailChange={(e: ChangeEvent<HTMLInputElement>) =>
-                              emailField.onChange(e.target.value)
-                            }
-                            onSubmit={handleSubmit}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                )}
-              />
-            )}
-          />
-        )}
+      <ContactDetailsForm
+        translations={translations}
+        titleValue={titleField.field.value}
+        firstNameValue={firstNameField.field.value}
+        lastNameValue={lastNameField.field.value}
+        phoneValue={phoneField.field.value || ""}
+        emailValue={emailField.field.value}
+        selectOptions={selectOptions}
+        errors={{
+          title: errors.title?.message,
+          firstName: errors.firstName?.message,
+          lastName: errors.lastName?.message,
+          phone: errors.phone?.message,
+          email: errors.email?.message,
+        }}
+        onTitleChange={titleField.field.onChange}
+        onFirstNameChange={(e: ChangeEvent<HTMLInputElement>) =>
+          firstNameField.field.onChange(e.target.value)
+        }
+        onLastNameChange={(e: ChangeEvent<HTMLInputElement>) =>
+          lastNameField.field.onChange(e.target.value)
+        }
+        onPhoneChange={(e: ChangeEvent<HTMLInputElement>) =>
+          phoneField.field.onChange(e.target.value)
+        }
+        onEmailChange={(e: ChangeEvent<HTMLInputElement>) =>
+          emailField.field.onChange(e.target.value)
+        }
+        onSubmit={handleSubmit}
       />
     );
   },

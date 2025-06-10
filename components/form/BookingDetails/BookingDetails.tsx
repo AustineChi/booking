@@ -1,5 +1,5 @@
 import React from "react";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Control, FieldErrors, useController } from "react-hook-form";
 import { useFormContext } from "@/context/FormContext";
 import { BookingDetailsForm } from "./BookingDetailsForm";
 import {
@@ -27,6 +27,17 @@ export const BookingDetails = React.memo(
   ({ translations, control, errors, handleSubmit }: BookingDetailsProps) => {
     const { activeStep } = useFormContext();
 
+    const bookerTypeField = useController({ control, name: "bookerType" });
+    const stayTypeField = useController({ control, name: "stayType" });
+    const schoolYouthBookingField = useController({
+      control,
+      name: "schoolYouthBooking",
+    });
+    const reasonField = useController({ control, name: "reason" });
+    const hotelField = useController({ control, name: "hotel" });
+    const dateRangeField = useController({ control, name: "dateRange" });
+    const packageTypeField = useController({ control, name: "packageType" });
+
     const bookerTypeOptionsTranslated = translateTitleOptions(
       bookerTypeOptions,
       translations
@@ -50,101 +61,36 @@ export const BookingDetails = React.memo(
     if (activeStep !== "booking") return null;
 
     return (
-      <Controller
-        name="bookerType"
-        control={control}
-        render={({ field }) => (
-          <Controller
-            name="stayType"
-            control={control}
-            render={({ field: stayTypeField }) => (
-              <Controller
-                name="schoolYouthBooking"
-                control={control}
-                render={({ field: schoolYouthBookingField }) => (
-                  <Controller
-                    name="reason"
-                    control={control}
-                    render={({ field: reasonField }) => (
-                      <Controller
-                        name="hotel"
-                        control={control}
-                        render={({ field: hotelField }) => (
-                          <Controller
-                            name="dateRange"
-                            control={control}
-                            render={({ field: dateRangeField }) => (
-                              <Controller
-                                name="packageType"
-                                control={control}
-                                render={({ field: packageTypeField }) => (
-                                  <BookingDetailsForm
-                                    translations={translations}
-                                    bookerType={field.value}
-                                    stayType={stayTypeField.value}
-                                    schoolYouthBooking={
-                                      schoolYouthBookingField.value
-                                    }
-                                    reason={reasonField.value}
-                                    hotel={hotelField.value}
-                                    dateRange={dateRangeField.value as never}
-                                    packageType={packageTypeField.value}
-                                    bookerTypeOptions={
-                                      bookerTypeOptionsTranslated
-                                    }
-                                    stayTypeOptions={stayTypeOptionsTranslated}
-                                    reasonOptions={reasonOptionsTranslated}
-                                    packageTypeOptions={
-                                      packageTypeOptionsTranslated
-                                    }
-                                    errors={{
-                                      bookerType: errors.bookerType?.message,
-                                      stayType: errors.stayType?.message,
-                                      schoolYouthBooking:
-                                        errors.schoolYouthBooking?.message,
-                                      reason: errors.reason?.message,
-                                      hotel: errors.hotel?.message,
-                                      dateRange: errors.dateRange?.message,
-                                      packageType: errors.packageType?.message,
-                                    }}
-                                    onBookerTypeChange={(value: string) =>
-                                      field.onChange(value)
-                                    }
-                                    onStayTypeChange={(value: string) =>
-                                      stayTypeField.onChange(value)
-                                    }
-                                    onSchoolYouthBookingChange={(
-                                      checked: boolean
-                                    ) =>
-                                      schoolYouthBookingField.onChange(checked)
-                                    }
-                                    onReasonChange={(
-                                      value: string | undefined
-                                    ) => reasonField.onChange(value)}
-                                    onHotelChange={(value: string) =>
-                                      hotelField.onChange(value)
-                                    }
-                                    onDateRangeChange={(value: DateRange) =>
-                                      dateRangeField.onChange(value)
-                                    }
-                                    onPackageTypeChange={(value: string) =>
-                                      packageTypeField.onChange(value)
-                                    }
-                                    onSubmit={handleSubmit}
-                                  />
-                                )}
-                              />
-                            )}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                )}
-              />
-            )}
-          />
-        )}
+      <BookingDetailsForm
+        translations={translations}
+        bookerType={bookerTypeField.field.value}
+        stayType={stayTypeField.field.value}
+        schoolYouthBooking={schoolYouthBookingField.field.value}
+        reason={reasonField.field.value}
+        hotel={hotelField.field.value}
+        dateRange={dateRangeField.field.value as DateRange}
+        packageType={packageTypeField.field.value}
+        bookerTypeOptions={bookerTypeOptionsTranslated}
+        stayTypeOptions={stayTypeOptionsTranslated}
+        reasonOptions={reasonOptionsTranslated}
+        packageTypeOptions={packageTypeOptionsTranslated}
+        errors={{
+          bookerType: errors.bookerType?.message,
+          stayType: errors.stayType?.message,
+          schoolYouthBooking: errors.schoolYouthBooking?.message,
+          reason: errors.reason?.message,
+          hotel: errors.hotel?.message,
+          dateRange: errors.dateRange?.message,
+          packageType: errors.packageType?.message,
+        }}
+        onBookerTypeChange={bookerTypeField.field.onChange}
+        onStayTypeChange={stayTypeField.field.onChange}
+        onSchoolYouthBookingChange={schoolYouthBookingField.field.onChange}
+        onReasonChange={reasonField.field.onChange}
+        onHotelChange={hotelField.field.onChange}
+        onDateRangeChange={dateRangeField.field.onChange}
+        onPackageTypeChange={packageTypeField.field.onChange}
+        onSubmit={handleSubmit}
       />
     );
   },
