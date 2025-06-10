@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme defaults */
+    --color-primary-hsl: 180, 100%, 25%; /* Teal (#008080) */
+    --color-primary-dark-hsl: 180, 100%, 15%;
+    --color-secondary-hsl: 0, 0%, 20%; /* Gray */
+    --color-background-hsl: 0, 0%, 100%; /* White */
+    --color-text-hsl: 0, 0%, 20%; /* Dark gray */
+    --color-error-hsl: 0, 100%, 60%; /* Red */
+    --color-text-primary-hsl: 0, 0%, 10%; /* Near black for main headings */
+    --color-text-secondary-hsl: 0, 0%, 25%; /* Dark gray for body text */
+    --color-text-tertiary-hsl: 0, 0%, 40%; /* Lighter gray for subtitles/muted text */
+  }
+
+  [data-theme="dark"] {
+    --color-primary-hsl: 180, 100%, 35%;
+    --color-primary-dark-hsl: 180, 100%, 25%;
+    --color-secondary-hsl: 0, 0%, 80%;
+    --color-background-hsl: 0, 0%, 10%; /* Dark gray */
+    --color-text-hsl: 0, 0%, 90%; /* Light gray */
+    --color-error-hsl: 0, 100%, 70%;
+    --color-text-primary-hsl: 0, 0%, 95%; /* Near white */
+    --color-text-secondary-hsl: 0, 0%, 80%; /* Light gray */
+    --color-text-tertiary-hsl: 0, 0%, 65%; /* Muted light gray */
+  }
+
+  body {
+    @apply bg-background text-text-secondary;
+  }
+}
+
+/* Custom styles for react-datepicker */
+.react-datepicker-custom {
+  font-family: inherit; /* Inherit font */
+  border: none; /* Remove default border, popup container already has one */
+}
+
+.react-datepicker-custom .react-datepicker__triangle {
+  display: none; /* Hide default triangle, often not needed or styled differently */
+}
+
+.react-datepicker-custom .react-datepicker__header {
+  background-color: hsl(var(--color-background-hsl)); /* Themed background */
+  border-bottom: 1px solid hsl(var(--color-secondary-hsl)); /* Themed border */
+  color: hsl(var(--color-text-hsl)); /* Themed text */
+}
+
+.react-datepicker-custom .react-datepicker__current-month,
+.react-datepicker-custom .react-datepicker-time__header,
+.react-datepicker-custom .react-datepicker-year-header {
+  color: hsl(var(--color-text-hsl)); /* Themed text for month/year */
+  font-weight: bold;
+}
+
+.react-datepicker-custom .react-datepicker__day-name,
+.react-datepicker-custom .react-datepicker__day,
+.react-datepicker-custom .react-datepicker__time-name {
+  color: hsl(var(--color-text-hsl)); /* Themed text for day names and numbers */
+  width: 2rem;
+  line-height: 2rem;
+}
+
+.react-datepicker-custom .react-datepicker__day:hover,
+.react-datepicker-custom .react-datepicker__month-text:hover,
+.react-datepicker-custom .react-datepicker__quarter-text:hover,
+.react-datepicker-custom .react-datepicker__year-text:hover {
+  background-color: hsl(var(--color-secondary-hsl), 0.5); /* Themed hover background */
+}
+
+.react-datepicker-custom .react-datepicker__day--selected,
+.react-datepicker-custom .react-datepicker__day--in-selecting-range,
+.react-datepicker-custom .react-datepicker__day--in-range,
+.react-datepicker-custom .react-datepicker__month-text--selected,
+.react-datepicker-custom .react-datepicker__month-text--in-selecting-range,
+.react-datepicker-custom .react-datepicker__month-text--in-range,
+.react-datepicker-custom .react-datepicker__quarter-text--selected,
+.react-datepicker-custom .react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker-custom .react-datepicker__quarter-text--in-range,
+.react-datepicker-custom .react-datepicker__year-text--selected,
+.react-datepicker-custom .react-datepicker__year-text--in-selecting-range,
+.react-datepicker-custom .react-datepicker__year-text--in-range {
+  background-color: hsl(var(--color-primary-hsl));
+  color: hsl(var(--color-background-hsl)); /* Text color for selected items, should contrast with primary */
+}
+
+.react-datepicker-custom .react-datepicker__day--selected:hover,
+.react-datepicker-custom .react-datepicker__day--in-selecting-range:hover,
+.react-datepicker-custom .react-datepicker__day--in-range:hover
+.react-datepicker-custom .react-datepicker__month-text--selected:hover,
+.react-datepicker-custom .react-datepicker__month-text--in-selecting-range:hover,
+.react-datepicker-custom .react-datepicker__month-text--in-range:hover,
+.react-datepicker-custom .react-datepicker__quarter-text--selected:hover,
+.react-datepicker-custom .react-datepicker__quarter-text--in-selecting-range:hover,
+.react-datepicker-custom .react-datepicker__quarter-text--in-range:hover,
+.react-datepicker-custom .react-datepicker__year-text--selected:hover,
+.react-datepicker-custom .react-datepicker__year-text--in-selecting-range:hover,
+.react-datepicker-custom .react-datepicker__year-text--in-range:hover {
+  background-color: hsl(var(--color-primary-dark-hsl)); /* Darker primary on hover for selected */
+}
+
+
+.react-datepicker-custom .react-datepicker__day--keyboard-selected {
+  background-color: hsl(var(--color-primary-hsl));
+  color: hsl(var(--color-background-hsl));
+}
+
+.react-datepicker-custom .react-datepicker__day--today {
+  font-weight: bold;
+  background-color: hsl(var(--color-secondary-hsl), 0.3); /* Subtle background for today */
+}
+
+.react-datepicker-custom .react-datepicker__day--disabled {
+  color: hsl(var(--color-secondary-hsl));
+  opacity: 0.5;
+}
+
+.react-datepicker-custom .react-datepicker__navigation {
+  background: none;
+  border: none;
+}
+
+.react-datepicker-custom .react-datepicker__navigation--previous .react-datepicker__navigation-icon::before,
+.react-datepicker-custom .react-datepicker__navigation--next .react-datepicker__navigation-icon::before {
+  border-color: hsl(var(--color-text-hsl)); /* Themed color for arrows */
+  border-width: 2px 2px 0 0;
+  height: 8px;
+  width: 8px;
+}
+
+.react-datepicker-custom .react-datepicker__navigation--previous:hover .react-datepicker__navigation-icon::before,
+.react-datepicker-custom .react-datepicker__navigation--next:hover .react-datepicker__navigation-icon::before {
+  border-color: hsl(var(--color-primary-hsl)); /* Themed hover for arrows */
+}
+
+/* Ensure the popup itself uses the custom class if not already */
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker-custom {
+    margin-top: 0; /* Adjust if needed */
+}
+.react-datepicker-popper[data-placement^=top] .react-datepicker-custom {
+    margin-bottom: 0; /* Adjust if needed */
+}
