@@ -52,17 +52,17 @@ export const RoomRequirementsForm: React.FC<RoomRequirementsFormProps> = ({
               {
                 id: "single",
                 label: translations.SINGLE_OCCUPANCY,
-                subLabel: translations.ROOM_TYPE_SINGLE_SUB,
+                subLabel: translations.SINGLE_OCCUPANCY,
               },
               {
                 id: "double",
                 label: translations.DOUBLE_OCCUPANCY,
-                subLabel: translations.ROOM_TYPE_DOUBLE_SUB,
+                subLabel: translations.DOUBLE_OCCUPANCY,
               },
               {
                 id: "twin",
                 label: translations.TWIN,
-                subLabel: translations.ROOM_TYPE_DOUBLE_SUB,
+                subLabel: translations.TWIN,
               },
             ],
           }}

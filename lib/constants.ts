@@ -77,9 +77,9 @@ export const stayTypeOptions = [
 ];
 
 export const roomTypes = [
-  { id: "single", label: "SINGLE_OCCUPANCY", subLabel: "ROOM_TYPE_SINGLE_SUB" },
-  { id: "double", label: "DOUBLE_OCCUPANCY", subLabel: "ROOM_TYPE_DOUBLE_SUB" },
-  { id: "twin", label: "TWIN", subLabel: "ROOM_TYPE_DOUBLE_SUB" },
+  { id: "single", label: "SINGLE_OCCUPANCY", subLabel: "SINGLE_OCCUPANCY" },
+  { id: "double", label: "DOUBLE_OCCUPANCY", subLabel: "DOUBLE_OCCUPANCY" },
+  { id: "twin", label: "TWIN", subLabel: "TWIN" },
 ];
 
 export const checkboxOptions = [

@@ -5,13 +5,6 @@ import { Header } from "./Header/Header";
 
 interface PageLayoutProps {
   children: React.ReactNode;
-  title?: string;
-  translations: {
-    BOOKING_DETAILS: string;
-    CONTACT_DETAILS: string;
-    ROOM_REQUIREMENTS: string;
-    [key: string]: string;
-  };
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {

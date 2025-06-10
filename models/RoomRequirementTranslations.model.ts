@@ -13,7 +13,5 @@ export interface RoomRequirementTranslations {
   SINGLE_OCCUPANCY: string;
   DOUBLE_OCCUPANCY: string;
   TWIN: string;
-  ROOM_TYPE_SINGLE_SUB: string;
-  ROOM_TYPE_DOUBLE_SUB: string;
   TOTAL_ROOMS: string;
 }
